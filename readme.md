@@ -8,7 +8,8 @@ The search will be made on your gmail account, from your Google Script. All data
 
 * Create a new Google Sheet
 * Access menu Tools > Script Editor
-* Copy the content from [gmailt-to-sheets.gs](gmailt-to-sheets.gs) to editor, replacing the sample code there 
+* Copy the content from [gmailt-to-sheets.gs](gmailt-to-sheets.gs) to editor, replacing the sample code there
+* Replace the value on `SEARCH_QUERY` to your real query (Do your search on gmail first, copy and paste the search terms there) 
 * Select `saveEmails` on menu (near "run" and "debug" buttons)
 * Click on "Run" button
 * It will ask for authorization at first run, proceed accepting it (it's your Gmail account authorizing your Google Script account)
@@ -16,4 +17,4 @@ The search will be made on your gmail account, from your Google Script. All data
 
 ## Changing fields
 
-If you want to save different message attributes, take a look at [gmail-message class](https://developers.google.com/apps-script/reference/gmail/gmail-message) and chage your script file the code below `Sheet header collumns` and `Values to get and store`
+If you want to save different message attributes, take a look at [gmail-message class](https://developers.google.com/apps-script/reference/gmail/gmail-message) and chage your script file the code below comments `Sheet header collumns` and `Values to get and store`
