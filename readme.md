@@ -17,4 +17,4 @@ The search will be made on your gmail account, from your Google Script. All data
 
 ## Changing fields
 
-If you want to save different message attributes, take a look at [gmail-message class](https://developers.google.com/apps-script/reference/gmail/gmail-message) and chage your script file the code below comments `Sheet header collumns` and `Values to get and store`
+If you want to save different message attributes, take a look at [gmail-message class](https://developers.google.com/apps-script/reference/gmail/gmail-message) and chage your script file the code below comments with a pencil (✏️)
