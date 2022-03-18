@@ -5,7 +5,7 @@
 // Samples: "label: hiring-process", "to: sales@mycompany.com"
 var SEARCH_QUERY = 'label: hiring-process';
 // If you want each email address just once on sheet, set to true
-var AVOID_REPEATED_ADDRESS = true;
+var AVOID_REPEATED_ADDRESS = false;
 
 // Main function, the one that you must select before run
 function saveEmails() {
@@ -26,7 +26,7 @@ function saveEmails() {
     }
 
     // Add Sheet header collumns ✏️
-    appendData(1, [["Date","From Address", "to Address"]]);
+    appendData(1, [["Date","From Address", "to Address","Body"]]);
     
     var totalEmails = 0;
     var emails = [];
@@ -43,6 +43,7 @@ function saveEmails() {
             var data = msg.getDate();          
             var from = msg.getFrom();
             var to = msg.getTo();
+            var body = msg.getPlainBody().substring(0,49999); // Google sheets has a 50000 character limit, this drops the remainder of long messages
             // var subject = msg.getSubject();
             var dataLine = [data,from,to];
 
@@ -56,7 +57,7 @@ function saveEmails() {
 
       totalEmails = totalEmails + emails.length;
 
-      // Add emails to sheed
+      // Add emails to sheet
       appendData(2, emails);
 
       if (threads.length == max){
