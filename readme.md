@@ -6,14 +6,15 @@ The search will be made on your gmail account, from your Google Script. All data
 
 ## How to use
 
-* Create a new Google Sheet
-* Access menu Tools > Script Editor
-* Copy the content from [gmailt-to-sheets.gs](gmailt-to-sheets.gs) to editor, replacing the sample code there
-* Replace the value on `SEARCH_QUERY` to your real query (Do your search on gmail first, copy and paste the search terms there) 
-* Select `saveEmails` on menu (near "run" and "debug" buttons)
-* Click on "Run" button
-* It will ask for authorization at first run, proceed accepting it (it's your Gmail account authorizing your Google Script account)
-* After run, the results will be applied to you sheet
+1. Create a new Google Sheet
+1. Access menu Extension > App Script
+1. Copy the content from [gmailt-to-sheets.gs](gmailt-to-sheets.gs) to editor, replacing the sample code there
+1. Replace the value on `SEARCH_QUERY` to your real query (Do your search on gmail first, copy and paste the search terms there)
+1. Click on "Save" button (the flop disk)
+1. Select `saveEmails` on menu (after "run" and "debug" buttons)
+1. Click on "Run" button
+1. It will ask for authorization at first run, proceed to accepting it (it's your Gmail account authorizing your Google Script account)
+1. After run, the results will be applied to you sheet
 
 ## Changing fields
 
