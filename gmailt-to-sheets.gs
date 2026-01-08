@@ -1,22 +1,53 @@
 // This Google Script searchs on your Gmail account, and store the results on a Google Sheet file
 // Original: https://github.com/TiagoGouvea/gmail-to-google-sheets-script/
 
-// Add here your search query. Do your search on gmail first, copy and paste the search terms here
-// Samples: "label: hiring-process", "to: sales@mycompany.com"
+// HOW TO USE:
+// 1 - Add your search query on the SEARCH_QUERY line. Do your search on gmail first, copy and paste the search terms here
+// Samples: "label: hiring-process", "to: sales@mycompany.com", "from: james@james.com"
 var SEARCH_QUERY = 'label: hiring-process';
-// If you want each email address just once on sheet, set to true
+// 2 - If you want each email address just once on sheet, set to true
 var AVOID_REPEATED_ADDRESS = true;
+
+// Do not modify the code below this line
+
+// Escapes the label to work correctly in Gmail search
+// Automatically adds {label:...} and escapes special characters
+function buildGmailQuery(label) {
+  // If already in full format "label:...", return as is
+  if (label.toLowerCase().startsWith('label:')) {
+    return label;
+  }
+  
+  // If already has {}, return with prefix
+  if (label.startsWith('{') && label.endsWith('}')) {
+    return 'label:' + label;
+  }
+  
+  // Characters that need escaping in Gmail
+  var needsEscape = /[.\-,/\s()]/;
+  
+  // If has special characters, wrap with {}
+  if (needsEscape.test(label)) {
+    return 'label:{' + label + '}';
+  }
+  
+  // Simple label, just add prefix
+  return 'label:' + label;
+}
 
 // Main function, the one that you must select before run
 function saveEmails() {
     console.log("Clearing sheet...");
     SpreadsheetApp.getActiveSheet().clear();  
-  
-    console.log(`Searching for: "${SEARCH_QUERY}"`);
+
+    var gmailQuery = buildGmailQuery(SEARCH_QUERY);
+    console.log(`Original query: "${SEARCH_QUERY}"`);
+    console.log(`Gmail query: "${gmailQuery}"`);
+
     var start = 0;
     var max = 500;
     
-    var threads = GmailApp.search(SEARCH_QUERY, start, max);
+    var threads = GmailApp.search(gmailQuery, start, max);
     if (threads!=null){
       console.log("Threads found 🎉");
       console.log("Paginating to collect email addresses...");
@@ -61,11 +92,12 @@ function saveEmails() {
 
       if (threads.length == max){
           console.log("Reading next page...");
+          start = start + max; 
+          threads = GmailApp.search(gmailQuery, start, max);
       } else {
           console.log("Last page readed 🏁");
+          break;
       }
-      start = start + max; 
-      threads = GmailApp.search(SEARCH_QUERY, start, max);
     }
 
     console.info(totalEmails+" emails added to sheet 🎉");
